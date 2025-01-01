@@ -5,6 +5,9 @@ import Dice from './Components/Dice'
 function App() {
   const [dice, setDice] = React.useState(allNewDice())
 
+  function reset() {
+    setDice(allNewDice())
+  }
 
   function allNewDice() {
     const newDice = []
@@ -31,7 +34,8 @@ function App() {
         {diceElement}
         {diceEle}
       </div>
-      <button className="px-4 py-2 bg-blue-500 text-white rounded-md">Roll</button>
+      <button onClick={reset}
+      className="px-4 py-2 bg-blue-500 text-white rounded-md">Roll</button>
     </main>
   )
 }
