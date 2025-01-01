@@ -1,5 +1,6 @@
 import React from 'react'
 import Dice from './Components/Dice' 
+import { nanoid } from 'nanoid'
 
 
 function App() {
@@ -12,19 +13,23 @@ function App() {
   function allNewDice() {
     const newDice = []
     for ( let i = 0; i < 12; i++){
-      newDice.push(Math.ceil(Math.random() * 6))
+      newDice.push({
+        value: Math.ceil(Math.random() * 6),
+        isHeld: false,
+        id: nanoid()
+      })
     }
     return newDice
   }
 
     //ini ada key id
-  const diceElement = dice.map((value, index) => (
-     <Dice key={index} value={value} />
-  ))
+  // const diceElement = dice.map((die, index) => (
+  //    <Dice key={index} value={die.value} isHeld={die.isHeld} />
+  // ))
 
   //ini tanpa key id
-  const diceEle = dice.map( die => 
-    <Dice value={die} />
+  const diceElement = dice.map( dice => 
+    <Dice id={dice.id} value={dice.value}  />
    )
 
   return (
@@ -32,7 +37,6 @@ function App() {
       <h1 className="text-4xl font-bold mb-8">Tenzies</h1>
       <div className="grid grid-cols-4 gap-4 mb-8">
         {diceElement}
-        {diceEle}
       </div>
       <button onClick={reset}
       className="px-4 py-2 bg-blue-500 text-white rounded-md">Roll</button>
