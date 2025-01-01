@@ -22,14 +22,12 @@ function App() {
     return newDice
   }
 
-    //ini ada key id
-  // const diceElement = dice.map((die, index) => (
-  //    <Dice key={index} value={die.value} isHeld={die.isHeld} />
-  // ))
 
-  //ini tanpa key id
   const diceElement = dice.map( precDice => 
-    <Dice key={precDice.id} value={precDice.value}  isHeld={precDice.isHeld} />
+    <Dice key={precDice.id} 
+    value={precDice.value}  
+    isHeld={precDice.isHeld}
+    />
    )
 
   return (
