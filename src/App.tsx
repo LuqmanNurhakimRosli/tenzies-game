@@ -1,6 +1,6 @@
 import React from 'react'
-import Dice from './Components/Dice' 
 import { nanoid } from 'nanoid'
+import Dice from './Components/dice'
 
 
 function App() {
@@ -28,8 +28,8 @@ function App() {
   // ))
 
   //ini tanpa key id
-  const diceElement = dice.map( dice => 
-    <Dice id={dice.id} value={dice.value}  />
+  const diceElement = dice.map( precDice => 
+    <Dice key={precDice.id} value={precDice.value}  isHeld={precDice.isHeld} />
    )
 
   return (
