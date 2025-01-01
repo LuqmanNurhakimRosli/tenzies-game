@@ -1,6 +1,6 @@
 import React from 'react'
 import { nanoid } from 'nanoid'
-import Dice from './Components/dice'
+import Dice from './Components/Dice'
 
 
 function App() {
