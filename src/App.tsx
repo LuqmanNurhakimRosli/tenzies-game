@@ -22,7 +22,7 @@ function App() {
     return newDice
   }
 
-  function holeDIce(id: string) {
+  function holdDIce(id: string) {
     setDice (prevDice => prevDice.map( dice => 
       dice.id === id ? {...dice, isHeld: !dice.isHeld} : dice
     ))
@@ -33,7 +33,7 @@ function App() {
     <Dice key={precDice.id} 
     value={precDice.value}  
     isHeld={precDice.isHeld}
-    holdDice= {() => holeDIce(precDice.id)}
+    holdDice= {() => holdDIce(precDice.id)}
     />
    )
 
