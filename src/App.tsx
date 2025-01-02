@@ -23,7 +23,9 @@ function App() {
   }
 
   function holeDIce(id: string) {
-    console.log(id)
+    setDice (prevDice => prevDice.map( dice => 
+      dice.id === id ? {...dice, isHeld: !dice.isHeld} : dice
+    ))
   }
 
 

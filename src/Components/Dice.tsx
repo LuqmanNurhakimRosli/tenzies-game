@@ -5,7 +5,7 @@ interface DiceProps {
 }
 
 function Dice({ value, isHeld, holdDice }: DiceProps) {
-  const diceStyle = isHeld ? "bg-gray-200" : "bg-white"
+  const diceStyle = isHeld ? "bg-green-200" : "bg-white"
   return (
     <div onClick={holdDice}  
     className={`w-16 h-16 flex items-center justify-center ${diceStyle} border-2 border-gray-300 rounded-md shadow-md`}>
