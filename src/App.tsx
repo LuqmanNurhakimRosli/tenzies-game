@@ -5,6 +5,20 @@ import Dice from './Components/Dice'
 
 function App() {
   const [dice, setDice] = React.useState(allNewDice())
+  const [tenzies, setTenzies] = React.useState(false)
+
+  React.useEffect(() => {
+    const allHeld = dice.every( die => die.isHeld)
+    const firstValue = dice[0].value
+
+  const allSameValue = dice.every (die => die.value === firstValue)
+
+  if(allHeld && allSameValue) {
+    setTenzies(true)
+    console.log("You won!")
+  }
+    
+  }, [dice])
 
 
 
@@ -25,12 +39,14 @@ function App() {
   }
 
   function rollDice() {
-    setDice(oldDice => oldDice.map(die => {
+    
+      setDice(oldDice => oldDice.map(die => {
         return die.isHeld ? 
-            die :
-            diceGenerate()
-    }))
-}
+          die :
+          diceGenerate()
+      }))
+    }
+  
 
   function holdDIce(id: string) {
     setDice (prevDice => prevDice.map( dice => 
@@ -50,6 +66,7 @@ function App() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-4xl font-bold mb-8">Tenzies</h1>
+      <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
       <div className="grid grid-cols-4 gap-4 mb-8">
         {diceElement}
       </div>
