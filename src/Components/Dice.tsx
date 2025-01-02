@@ -9,7 +9,7 @@ type DotPositions = {
 }
 
 function Dice({ value, isHeld, holdDice }: DiceProps) {
-  const diceStyle = isHeld ? "bg-green-200" : "bg-white"
+  const diceStyle = isHeld ? "bg-green-500" : "bg-white"
   
   return (
     <div onClick={holdDice}  
