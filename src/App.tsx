@@ -22,11 +22,16 @@ function App() {
     return newDice
   }
 
+  function holeDIce(id: string) {
+    console.log(id)
+  }
+
 
   const diceElement = dice.map( precDice => 
     <Dice key={precDice.id} 
     value={precDice.value}  
     isHeld={precDice.isHeld}
+    holdDice= {() => holeDIce(precDice.id)}
     />
    )
 
