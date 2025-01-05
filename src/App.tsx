@@ -19,15 +19,19 @@ function App() {
     
     if (isActive && !tenzies) {
       interval = setInterval(() => {
-        setTimer((timer) => timer + 1)
+        setTimer(prevTimer => prevTimer + 1)
       }, 1000)
     }
     
-    return () => clearInterval(interval)
+    return () => {
+      if (interval) clearInterval(interval)
+    }
   }, [isActive, tenzies])
 
   // Check winning condition
   React.useEffect(() => {
+    if (!dice.length) return;
+    
     const allHeld = dice.every(die => die.isHeld)
     const firstValue = dice[0].value
     const allSameValue = dice.every(die => die.value === firstValue)
@@ -42,29 +46,23 @@ function App() {
     }
   }, [dice, timer, bestTime])
 
-  function diceGenerate(){
+  function diceGenerate() {
     return {
       value: Math.ceil(Math.random() * 6),
-        isHeld: false,
-        id: nanoid()
+      isHeld: false,
+      id: nanoid()
     }
   }
 
   function allNewDice() {
-    const newDice = []
-    for ( let i = 0; i < 12; i++){
-      newDice.push(diceGenerate())
-    }
-    return newDice
+    return Array.from({ length: 12 }, () => diceGenerate())
   }
 
   function rollDice() {
     if (!tenzies) {
-      setRolls(prev => prev + 1)
+      setRolls(prevRolls => prevRolls + 1)
       if (!isActive) setIsActive(true)
-      setDice(oldDice => oldDice.map(die => {
-        return die.isHeld ? die : diceGenerate()
-      }))
+      setDice(oldDice => oldDice.map(die => die.isHeld ? die : diceGenerate()))
     } else {
       setTenzies(false)
       setDice(allNewDice())
@@ -74,20 +72,20 @@ function App() {
     }
   }
 
-  function holdDIce(id: string) {
-    setDice (prevDice => prevDice.map( dice => 
-      dice.id === id ? {...dice, isHeld: !dice.isHeld} : dice
+  function holdDice(id: string) {
+    setDice(prevDice => prevDice.map(die => 
+      die.id === id ? { ...die, isHeld: !die.isHeld } : die
     ))
   }
 
-
-  const diceElement = dice.map( precDice => 
-    <Dice key={precDice.id} 
-    value={precDice.value}  
-    isHeld={precDice.isHeld}
-    holdDice= {() => holdDIce(precDice.id)}
+  const diceElements = dice.map(die => (
+    <Dice 
+      key={die.id} 
+      value={die.value}  
+      isHeld={die.isHeld}
+      holdDice={() => holdDice(die.id)}
     />
-   )
+  ))
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-blue-200 p-8">
@@ -112,7 +110,7 @@ function App() {
         </div>
       </div>
       <div className="grid grid-cols-4 gap-4 mb-8 p-8 bg-blue-50 rounded-xl shadow-lg">
-        {diceElement}
+        {diceElements}
       </div>
       <button 
         onClick={rollDice}
